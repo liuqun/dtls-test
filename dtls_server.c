@@ -1,5 +1,6 @@
 #include "dtls.h"
 
+#include <ctype.h> // using toupper()
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/socket.h>
@@ -90,6 +91,9 @@ main()
                 printf("\n");
 
                 // Echo the message back to the client
+                for (int i = 0; i < read; i++) {
+                    outbuf[i] = toupper(outbuf[i]);
+                }
                 SSL_write(server.ssl, outbuf, read);
             }
         }
